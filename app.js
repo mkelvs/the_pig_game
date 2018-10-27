@@ -6,30 +6,23 @@ GAME RULES:
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 */
-document.querySelector('.dice').style.display = 'none';
-document.querySelector('#score-0').textContent = 0;
-document.querySelector('#score-1').textContent = 0;
-document.getElementById('current-0').textContent = 0;
-document.getElementById('current-1').textContent = 0;
-
 let scores, roundScore, activePlayer;
-let diceDOM = document.querySelector('.dice');
+
 scores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
 
-function resetTurn() {
-    activePlayer == 0 ? activePlayer = 1 : activePlayer = 0;
-    roundScore = 0
-    document.getElementById('current-0').textContent = 0;
-    document.getElementById('current-1').textContent = 0;
+const diceDOM = document.querySelector('.dice');
+const currentZeroDOM = document.getElementById('current-0');
+const currentOneDOM = document.getElementById('current-1');
+const scoreZeroDOM = document.querySelector('#score-0');
+const scoreOneDOM = document.querySelector('#score-1');
 
-    document.querySelector('.player-0-panel').classList.toggle('active');
-    document.querySelector('.player-1-panel').classList.toggle('active');
-
-    diceDOM.style.display = 'none';
-}
-
+scoreZeroDOM.textContent = 0;
+scoreOneDOM.textContent = 0;
+currentZeroDOM.textContent = 0;
+currentOneDOM.textContent = 0;
+hideDice();
 
 document.querySelector('.btn-roll').addEventListener('click', ()=>{
     //Generate a random number once the button is clicked.
@@ -57,7 +50,11 @@ document.querySelector('.btn-hold').addEventListener('click', ()=> {
 
     if (scores[activePlayer] >= 100) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+        hideDice();
+        toggleActive();
+    } else {
+        resetTurn();
     }
-    resetTurn();
+    
     
 })
