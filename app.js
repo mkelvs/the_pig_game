@@ -54,6 +54,10 @@ document.querySelector('.btn-roll').addEventListener('click', ()=>{
 document.querySelector('.btn-hold').addEventListener('click', ()=> {
     scores[activePlayer] += roundScore;
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+    if (scores[activePlayer] >= 100) {
+        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+    }
     resetTurn();
     
 })
