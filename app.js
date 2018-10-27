@@ -61,3 +61,5 @@ document.querySelector('.btn-hold').addEventListener('click', ()=> {
 });
 
 document.querySelector('.btn-new').addEventListener('click', init);
+
+//Application completed!
