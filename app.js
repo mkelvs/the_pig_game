@@ -43,5 +43,9 @@ document.querySelector('.btn-roll').addEventListener('click', function(e){
 
         document.querySelector('.player-0-panel').classList.toggle('active');
         document.querySelector('.player-1-panel').classList.toggle('active');
+
+        diceDOM.style.display = 'none';
     }
 });
+
+
