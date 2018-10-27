@@ -10,10 +10,14 @@ let scores, roundScore, activePlayer;
 
 scores = [0, 0];
 roundScore = 0;
-activePlayer = 1;
+activePlayer = 0;
 
 
 document.querySelector('.dice').style.display = 'none';
+document.querySelector('#score-0').textContent = 0;
+document.querySelector('#score-1').textContent = 0;
+document.getElementById('current-0').textContent = 0;
+document.getElementById('current-1').textContent = 0;
 
 document.querySelector('.btn-roll').addEventListener('click', function(e){
     //Generate a random number once the button is clicked.
