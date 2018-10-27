@@ -8,20 +8,13 @@ GAME RULES:
 */
 let scores, roundScore, activePlayer;
 
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
-
 const diceDOM = document.querySelector('.dice');
 const currentZeroDOM = document.getElementById('current-0');
 const currentOneDOM = document.getElementById('current-1');
 const scoreZeroDOM = document.querySelector('#score-0');
 const scoreOneDOM = document.querySelector('#score-1');
 
-scoreZeroDOM.textContent = 0;
-scoreOneDOM.textContent = 0;
-currentZeroDOM.textContent = 0;
-currentOneDOM.textContent = 0;
+init();
 hideDice();
 
 document.querySelector('.btn-roll').addEventListener('click', ()=>{
@@ -48,7 +41,7 @@ document.querySelector('.btn-hold').addEventListener('click', ()=> {
     scores[activePlayer] += roundScore;
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-    if (scores[activePlayer] >= 100) {
+    if (scores[activePlayer] >= 10) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         hideDice();
         toggleActive();
@@ -57,4 +50,6 @@ document.querySelector('.btn-hold').addEventListener('click', ()=> {
     }
     
     
-})
+});
+
+document.querySelector('.btn-new').addEventListener('click', init);
