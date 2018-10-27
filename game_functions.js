@@ -25,6 +25,7 @@ function resetTurn() {
 }
 
 function init() {
+    gamePlay = true;
     scores = [0, 0];
     roundScore = 0;
     activePlayer = 0;

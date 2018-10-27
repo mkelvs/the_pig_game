@@ -6,7 +6,7 @@ GAME RULES:
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 */
-let scores, roundScore, activePlayer;
+let scores, roundScore, activePlayer, gamePlay;
 
 const diceDOM = document.querySelector('.dice');
 const currentZeroDOM = document.getElementById('current-0');
@@ -18,36 +18,44 @@ init();
 hideDice();
 
 document.querySelector('.btn-roll').addEventListener('click', ()=>{
-    //Generate a random number once the button is clicked.
-    var dice = Math.floor(Math.random() * 6) + 1;
+    if(gamePlay) {
+        //Generate a random number once the button is clicked.
+        var dice = Math.floor(Math.random() * 6) + 1;
 
-    //Display the result
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
+        //Display the result
+        diceDOM.style.display = 'block';
+        diceDOM.src = 'dice-' + dice + '.png';
 
-    //Update the round score IF the rolled number was not 1
-    if ( dice !== 1) {
-        //Add score
-        roundScore += dice;
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
-        
-    }else {
-        //Next player
-        resetTurn();
-    }
+        //Update the round score IF the rolled number was not 1
+        if (dice !== 1) {
+            //Add score
+            roundScore += dice;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+
+        } else {
+            //Next player
+            resetTurn();
+        }
+    };
+    
 });
 
 document.querySelector('.btn-hold').addEventListener('click', ()=> {
-    scores[activePlayer] += roundScore;
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    if (gamePlay){
+        scores[activePlayer] += roundScore;
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-    if (scores[activePlayer] >= 10) {
-        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-        hideDice();
-        toggleActive();
-    } else {
-        resetTurn();
+        if (scores[activePlayer] >= 10) {
+            document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+            hideDice();
+            toggleActive();
+            gamePlay = false;
+        } else {
+            resetTurn();
+        }
+
     }
+    
     
     
 });
