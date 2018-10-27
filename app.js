@@ -6,25 +6,36 @@ GAME RULES:
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 */
-let scores, roundScore, activePlayer;
-
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
-
-
 document.querySelector('.dice').style.display = 'none';
 document.querySelector('#score-0').textContent = 0;
 document.querySelector('#score-1').textContent = 0;
 document.getElementById('current-0').textContent = 0;
 document.getElementById('current-1').textContent = 0;
 
-document.querySelector('.btn-roll').addEventListener('click', function(e){
+let scores, roundScore, activePlayer;
+let diceDOM = document.querySelector('.dice');
+scores = [0, 0];
+roundScore = 0;
+activePlayer = 0;
+
+function resetTurn() {
+    activePlayer == 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0
+    document.getElementById('current-0').textContent = 0;
+    document.getElementById('current-1').textContent = 0;
+
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+
+    diceDOM.style.display = 'none';
+}
+
+
+document.querySelector('.btn-roll').addEventListener('click', ()=>{
     //Generate a random number once the button is clicked.
     var dice = Math.floor(Math.random() * 6) + 1;
 
     //Display the result
-    var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
 
@@ -36,16 +47,13 @@ document.querySelector('.btn-roll').addEventListener('click', function(e){
         
     }else {
         //Next player
-        activePlayer == 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0
-        document.getElementById('current-0').textContent = 0;
-        document.getElementById('current-1').textContent = 0;
-
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-
-        diceDOM.style.display = 'none';
+        resetTurn();
     }
 });
 
-
+document.querySelector('.btn-hold').addEventListener('click', ()=> {
+    scores[activePlayer] += roundScore;
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    resetTurn();
+    
+})
